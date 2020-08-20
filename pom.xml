@@ -13,7 +13,7 @@
     <artifactId>mbp-high</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mbp-high</name>
-    <description>mnp进阶用法</description>
+    <description>mbp进阶用法</description>
 
     <properties>
         <java.version>1.8</java.version>
