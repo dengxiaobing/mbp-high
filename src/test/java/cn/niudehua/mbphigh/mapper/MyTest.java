@@ -1,6 +1,9 @@
 package cn.niudehua.mbphigh.mapper;
 
 import cn.niudehua.mbphigh.domain.User;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,4 +46,12 @@ public class MyTest {
         log.info("==>update:{}", i);
         Assert.assertEquals(1, i);
     }
+
+    @Test
+    public void mySelectList() {
+        List<User> users = userMapper.mySelectList(Wrappers.<User>lambdaQuery().gt(User::getAge,20).eq(User::getDeleted,0));
+        users.forEach(u -> log.info("==>user:{}", u));
+        Assert.assertNotNull(users);
+    }
+
 }
