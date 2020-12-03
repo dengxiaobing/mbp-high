@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * @author: deng
@@ -38,5 +39,21 @@ public class MyMetaObjectHandle implements MetaObjectHandler {
                 setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
             }
         }
+    }
+
+    /**
+     * 重写填充策略，有值（且不为null）不覆盖
+     * @param metaObject  metaObject
+     * @param fieldName fieldName
+     * @param fieldVal fieldVal
+     * @return MetaObjectHandler
+     */
+    @Override
+    public MetaObjectHandler strictFillStrategy(MetaObject metaObject, String fieldName, Supplier<Object> fieldVal) {
+        Object o = fieldVal.get();
+        if (Objects.nonNull(o)) {
+            metaObject.setValue(fieldName, o);
+        }
+        return this;
     }
 }
